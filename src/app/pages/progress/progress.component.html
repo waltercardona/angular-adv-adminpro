@@ -1,1 +1,58 @@
-<p>progress works!</p>
+<!-- video del input aqui trabajamos con la informacon que le vamos a pasar del componente hijo al padre
+este componente progres seria le compomente padre ya que aqui es donde estamos llamando el incrementador 
+el incrementador el hijo y el progres es el padre -->
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Striped Progress bar </h4>
+                <div class="progress m-t-20">
+                    <div class="progress-bar bg-primary progress-bar-striped active"
+                         style=" height:10px;"
+                         [style.width]="getProgreso1"
+                         role="progressbar">
+                        </div>
+                </div>
+                <div class="progress m-t-20">
+                    <div class="progress-bar bg-info progress-bar-striped active"
+                         style=" height:10px;"
+                         [style.width]="getProgreso2"
+                         role="progressbar">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <!-- aqui llamanos la propieda que tenemos en el ts del padre de este componente
+                lo llamamos con los [] con las llaves hacemos referencia a una propiedad -->
+                <app-incrementador (valorsalida)="progreso1 = $event" 
+                                   [valor]="progreso1">
+                  
+                </app-incrementador>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+              
+                <app-incrementador (valorsalida)="progreso2 = $event" 
+                                   [btnClass]="'btn-info'"
+                                   [valor]="progreso2" >
+                </app-incrementador>
+            </div>
+        </div>
+    </div>
+</div>
+
