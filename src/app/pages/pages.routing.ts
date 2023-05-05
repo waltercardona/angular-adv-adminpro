@@ -1,7 +1,7 @@
-
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
+import { AuthGuard } from '../guards/auth.guard';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -11,32 +11,36 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 
-
-
+// Definimos las rutas y sus respectivos componentes
 const routes: Routes = [
-  //esta es la implementacion de las rutas
-  //video 21 vamos a implememtar rutas secundarias
   {
-    path:'dashboard',
-    component:PagesComponent,
+    // Ruta principal
+    path: 'dashboard',
+    component: PagesComponent,
+    // Protegemos la ruta con el guard AuthGuard para que solo los usuarios autenticados puedan acceder
+    canActivate: [AuthGuard],
+    // Rutas hijas de la ruta principal
     children: [
-      // estas seran las rutas hijas, esta es una forma de implementar las rutas hijas en la app
-      { path:'', component:DashboardComponent , data: {titulo:'dashboard'}},
-      { path:'progress', component:ProgressComponent,data: {titulo:'Progress'}},
-      { path:'grafica1', component: Grafica1Component, data: {titulo:'Grafica 1'}},
-      { path:'account-setting', component: AccountSettingsComponent,data: {titulo:'Temas'}},
-      { path:'promesas', component: PromesasComponent,data: {titulo:'Promesas'}},
-      { path:'rxjs', component: RxjsComponent,data: {titulo:'Rxjs'}},
-    //   { path: '', redirectTo:'/dashboard', pathMatch: 'full'},
+      // Ruta para el componente DashboardComponent
+      { path: '', component: DashboardComponent, data: { titulo: 'dashboard' } },
+      // Ruta para el componente ProgressComponent
+      { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
+      // Ruta para el componente Grafica1Component
+      { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Grafica 1' } },
+      // Ruta para el componente AccountSettingsComponent
+      { path: 'account-setting', component: AccountSettingsComponent, data: { titulo: 'Temas' } },
+      // Ruta para el componente PromesasComponent
+      { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
+      // Ruta para el componente RxjsComponent
+      { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs' } }
     ]
   },
-
-
-  
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  // Importamos el módulo de rutas de Angular y lo configuramos con las rutas definidas
+  imports: [RouterModule.forChild(routes)],
+  // Exportamos el módulo de rutas para que pueda ser utilizado en otros módulos
+  exports: [RouterModule]
 })
-export class PagesRoutingModule {}
+export class PagesRoutingModule { }
