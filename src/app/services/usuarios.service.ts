@@ -8,8 +8,11 @@ import {of} from 'rxjs'
 
 import { environment } from '../../environments/environment';
 // import { RegisterForm } from '../interfaces/register-form.interface';
+// import { Usuario } from 'src/app/models/usuario.model';
+import { Usuario } from '../models/usuario.model';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
+import { ActualizarPerfil } from '../interfaces/actualizarPerfil.interface';
 
 const base_url = environment.base_url
 
@@ -19,13 +22,24 @@ declare const google :any
   providedIn: 'root'
 })
 export class UsuariosService {
+
+public usuario!: Usuario
+
   // para trabajar con el hhtp de angular inyectamos el httpclient
   constructor( private http: HttpClient,
               private router:Router,
-              private ngZone: NgZone) { }
+              private ngZone: NgZone) {
+                
+               }
 
               
+    get token():string{
+      return localStorage.getItem('token') || '';
+    }
 
+    get uid():string{
+      return this.usuario.uid || '';
+    }
 
   logout(){
     localStorage.removeItem('token')
@@ -45,7 +59,7 @@ export class UsuariosService {
   verificarToken(): Observable<boolean> {
     // Obtenemos el token almacenado en el localStorage
     const token = localStorage.getItem('token') || '';
-  
+    
     // Realizamos la petición para revalidar el token en el backend
     // Para ello, hacemos uso del método http.get() del servicio HttpClient
     // y especificamos la URL a la que queremos acceder y los headers que enviamos
@@ -56,13 +70,26 @@ export class UsuariosService {
       }
     }).pipe(
       // Usamos el operador tap() para guardar el nuevo token en el localStorage
-      tap((resp: any) => {
+      map((resp: any) => {
+        console.log(resp);
+
+        const { email,google,img='' ,nombre,role,uid,} = resp.usuario
+        this.usuario = new Usuario(nombre, email, img ,google, role, uid);
+       
+        
+        // const {  nombre, email, img , google, role, uid} = resp.usuario
+
+        // this.usuario = new Usuario(nombre, email,'', img,google,role,uid )
+       
         localStorage.setItem('token',resp.token)
+        return true
+
       }),
+      // map(resp => true),
       // Usamos el operador map() para transformar la respuesta en un booleano
-      map(resp => true),
+    
       // Si ocurre un error en la petición, emitimos false
-      catchError(error => of(false))
+      catchError(error => of (false))
     );
   }
 
@@ -81,6 +108,45 @@ export class UsuariosService {
         )
 
   }
+
+
+  // Actualizarperfils(data:ActualizarPerfil){
+
+  //   return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
+  //     headers:{
+  //       'x-token': this.token
+  //     }
+  //   });
+
+  // }
+
+  actualizarperfil(data: { email: string, nombre: string, role: string }) {
+   
+    data = {
+      ...data,
+      role: 'USER_ROLE'
+    }
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+  }
+
+  // Actualizarperfil1( data:{email:string,nombre:string, role: string}){
+
+  //   data = {
+  //     ...data,
+  //     role: this.usuario.role
+  //   }
+
+  //   return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
+  //     headers:{
+  //       'x-token': this.token
+  //     }
+  //   });
+
+  // }
 
   // creamos el servicio para el login
 

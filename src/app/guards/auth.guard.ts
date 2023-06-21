@@ -30,9 +30,13 @@ export class AuthGuard implements CanActivate {
    * Si el valor es true, permite el acceso a la ruta protegida.
    * Si el valor es false, redirige a la página de inicio de sesión.
    */
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.usuarioServices.verificarToken().pipe(
-      tap((estaAutenticado) => {
+  canActivate(
+    next: ActivatedRouteSnapshot, 
+    state: RouterStateSnapshot) {
+
+    return this.usuarioServices.verificarToken()
+    .pipe(
+      tap( estaAutenticado => {
         // Si el usuario no está autenticado, redirige a la página de inicio de sesión.
         if (!estaAutenticado) {
           this.router.navigateByUrl('/login');

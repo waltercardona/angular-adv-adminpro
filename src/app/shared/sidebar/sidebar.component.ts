@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { resolveObjectKey } from 'chart.js/dist/helpers/helpers.core';
 import { resolve } from 'chart.js/dist/helpers/helpers.options';
 import { SidebarService } from '../../services/sidebar.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Usuario } from '../../models/usuario.model';
 
 
 @Component({
@@ -11,15 +13,20 @@ import { SidebarService } from '../../services/sidebar.service';
 })
 export class SidebarComponent implements OnInit {
   // me defino una propiedad
-  menuItems: any[]; //para barrer este arreglo ocupo en el html un ngfor
+  imgUrl = ''
+  public menuItems: any[]; //para barrer este arreglo ocupo en el html un ngfor
+ public usuario:Usuario
 
 // para usar el servico del SidebarService necesito inyectarlo
-  constructor( private sidebarService:SidebarService) {
+  constructor( private sidebarService:SidebarService,
+    private usuarioServices:UsuariosService) {
+
+      // this.imgUrl = usuarioServices.usuario.imagenUrl
 
     this.menuItems = sidebarService.menu;
+    
     // console.log(this.menuItems);
-
-
+    this.usuario = usuarioServices.usuario
    }
 
   ngOnInit(): void {

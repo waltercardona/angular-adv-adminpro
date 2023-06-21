@@ -8,7 +8,7 @@ export class SettingsService {
   private linktemaSeleccionado = document.querySelector('#theme');
 
   constructor() { 
-    console.log('configuracion desde el servicio que se creo');
+   // console.log('configuracion desde el servicio que se creo');
     const url =  localStorage.getItem( 'theme') || './assets/css/colors/red.css'
     this.linktemaSeleccionado?.setAttribute('href', url)
     

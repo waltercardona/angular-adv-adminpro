@@ -10,6 +10,7 @@ import { Grafica1Component } from './grafica1/grafica1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 // Definimos las rutas y sus respectivos componentes
 const routes: Routes = [
@@ -32,7 +33,9 @@ const routes: Routes = [
       // Ruta para el componente PromesasComponent
       { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
       // Ruta para el componente RxjsComponent
-      { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs' } }
+      { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs' } },
+       // Ruta para el componente PerfilComponent
+      { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' } },
     ]
   },
 ];
