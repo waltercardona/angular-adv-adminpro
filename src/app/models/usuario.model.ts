@@ -9,7 +9,7 @@ export class Usuario {
     constructor(
         public nombre: string,
         public email: string,
-        public img: string,
+        public img?: string,
         public role?: string,
         public password?: string,
         public uid?: string,  
@@ -26,22 +26,17 @@ export class Usuario {
    get imagenUrl() {
 
     // /upload/usuarios/hgdfsjd
-   
-    if (this.img?.includes('https')) {
-      return this.img
-    }
-     
-        if (this.img) {
-          
-          return `${base_url}/upload/usuarios/${this.img}`;
-         
-          
-        } else {
-          
-          return `${base_url}/upload/usuarios/no-imagen`;
-        }
-      
+      if (!this.img) {
+        return `${base_url}/upload/usuarios/no-imagen`;
+      } else if (this.img?.includes('https')) {
+        return this.img
+      }else if (this.img) {
+        return `${base_url}/upload/usuarios/${this.img}`; 
+      } else {
+        return `${base_url}/upload/usuarios/no-imagen`;
       }
+      
+    }
 
     get imagenUrl1(){
         if (typeof this.img === 'string' && this.img?.includes('https')) {

@@ -14,3 +14,33 @@ cursor: pointer;
     width: 200px;
     height: 200px;
 }
+
+
+.w100{
+    width: 100px;
+}
+.w140{
+    width: 140px;
+}
+
+.avatar{
+    width: 50px;
+    border-radius: 100%;
+}
+
+.cursos{
+    cursor: pointer;
+}
+
+.oculto{
+    display: none;
+}
+
+.fondo-modal-imagen{
+    position: fixed;
+    top: 0px;
+    width: 100px;
+    left: 0px;
+    height: 100px;
+    z-index: 9999;
+}

@@ -12,6 +12,9 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 
+//Mantenimientos
+import { UsuariosComponent } from './manteniminetos/usuarios/usuarios.component';
+
 // Definimos las rutas y sus respectivos componentes
 const routes: Routes = [
   {
@@ -36,6 +39,9 @@ const routes: Routes = [
       { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs' } },
        // Ruta para el componente PerfilComponent
       { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' } },
+
+      //Mantenimientos
+      {path: 'usuarios', component: UsuariosComponent, data:{titulo: 'Usuarios de aplicacion'}}
     ]
   },
 ];

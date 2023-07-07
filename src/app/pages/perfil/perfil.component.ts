@@ -21,10 +21,6 @@ export class PerfilComponent implements OnInit {
 
   public imgTemp: any  = null
 
- 
-
-
-
   constructor( private fb:FormBuilder,
                 private usuarioService:UsuariosService,
                 private fileUploadServices:FileUploadService) {
@@ -42,21 +38,6 @@ export class PerfilComponent implements OnInit {
 
 
   }
-
-  actualizarperfil1(){
-    console.log(this.perfilForm.value);
-    // this.usuarioService.Actualizarperfil(this.perfilForm.value)
-    //     .subscribe(resp=>{
-    //       console.log(resp);
-          
-    //       // const {nombre, email} = this.perfilForm.value
-    //       // this.usuario.nombre = nombre;
-    //       // this.usuario.email= email;
-          
-    //     })
-    
-  }
-
   actualizarperfil() {
     console.log(this.perfilForm.value);
     this.usuarioService.actualizarperfil(this.perfilForm.value)
@@ -78,11 +59,6 @@ export class PerfilComponent implements OnInit {
         console.log(err.error.msg);
         
       });
-  }
-
-  cambiarImagen1(file: File){
-    console.log(event);
-    
   }
 
   cambiarImagen(event: Event) {

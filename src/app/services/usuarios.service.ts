@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, delay, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Observable, pipe } from 'rxjs';
 
@@ -13,6 +13,7 @@ import { Usuario } from '../models/usuario.model';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { ActualizarPerfil } from '../interfaces/actualizarPerfil.interface';
+import { CargarUsuario } from '../interfaces/cargar-usuarios.interfaces';
 
 const base_url = environment.base_url
 
@@ -39,6 +40,14 @@ public usuario!: Usuario
 
     get uid():string{
       return this.usuario.uid || '';
+    }
+
+    get header(){
+      return {
+        headers: {
+          'x-token': this.token
+        }
+      }
     }
 
   logout(){
@@ -73,8 +82,8 @@ public usuario!: Usuario
       map((resp: any) => {
         console.log(resp);
 
-        const { email,google,img='' ,nombre,role,uid,} = resp.usuario
-        this.usuario = new Usuario(nombre, email, img ,google, role, uid);
+        const {nombre,email,img='',role,uid, google} = resp.usuario
+        this.usuario = new Usuario(nombre, email, img ,role,google, uid);
        
         
         // const {  nombre, email, img , google, role, uid} = resp.usuario
@@ -120,11 +129,11 @@ public usuario!: Usuario
 
   // }
 
-  actualizarperfil(data: { email: string, nombre: string, role: string }) {
+  actualizarperfil(data: { email: string, nombre: string, role: string}) {
    
     data = {
       ...data,
-      role: 'USER_ROLE'
+      role: this.usuario.role || ''
     }
     return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
       headers: {
@@ -212,6 +221,45 @@ public usuario!: Usuario
       )
 
 
+  }
+
+
+  cargarUsuarios(desde:number = 0){
+    // localhost:3000/api/usuarios?desde=0
+    const url = `${base_url}/usuarios?desde=${desde}`
+    return this.http.get<CargarUsuario>(url, this.header)
+      .pipe(
+        delay(5),
+        map(resp => {
+         console.log(resp.usuarios);
+         
+
+          const usuarios = resp.usuarios.map( 
+            user => new Usuario(user.nombre, 
+              user.email, user.img, user.role,'', user.uid, user.google))
+          
+          return {
+            total: resp.total,
+            usuarios
+          }
+        })
+      )
+  }
+
+
+  eliminarUsuario(usuario:Usuario){
+    // usuarios/641281429c880dd40baa053f
+    
+    const url = `${base_url}/usuarios/${usuario.uid}`
+    return this.http.delete(url, this.header)
+  }
+
+
+
+  guardarUsuario(usuario:Usuario) {
+   
+    return this.http.put(`${base_url}/usuarios/${usuario.uid}`, usuario, this.header )
+    
   }
 
 
