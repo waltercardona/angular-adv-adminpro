@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AppRoutingModule } from '../app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { PipesModule } from '../pipes/pipes.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
@@ -19,6 +20,10 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './manteniminetos/usuarios/usuarios.component';
+
+import { HospitalesComponent } from './manteniminetos/hospitales/hospitales.component';
+import { MedicosComponent } from './manteniminetos/medicos/medicos.component';
+import { MedicoComponent } from './manteniminetos/medicos/medico.component';
 
 
 
@@ -34,7 +39,10 @@ import { UsuariosComponent } from './manteniminetos/usuarios/usuarios.component'
     PromesasComponent,
     RxjsComponent,
     PerfilComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    MedicosComponent,
+    HospitalesComponent,
+    MedicoComponent
   ],
   exports:[
     DashboardComponent,
@@ -51,6 +59,7 @@ import { UsuariosComponent } from './manteniminetos/usuarios/usuarios.component'
     SharedModule,
     AppRoutingModule,
     ComponentsModule,
+    PipesModule
    
   ]
 })

@@ -9,8 +9,8 @@ import { Subscription, delay } from 'rxjs';
 
 @Component({
   selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css']
+  templateUrl: './usuarios.component.html'
+
 })
 export class UsuariosComponent implements OnInit, OnDestroy {
 
@@ -76,6 +76,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
     if (termino.length === 0) {
       return this.usuarios =  this.usuariosTemp
+     
     }
     this.busquedasServices.buscar('usuarios', termino)
       .subscribe(resultados => {
