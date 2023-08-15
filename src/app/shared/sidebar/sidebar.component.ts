@@ -14,16 +14,16 @@ import { Usuario } from '../../models/usuario.model';
 export class SidebarComponent implements OnInit {
   // me defino una propiedad
   imgUrl = ''
-  public menuItems: any[]; //para barrer este arreglo ocupo en el html un ngfor
+  //public menuItems: any[]; //para barrer este arreglo ocupo en el html un ngfor
  public usuario:Usuario
 
 // para usar el servico del SidebarService necesito inyectarlo
-  constructor( private sidebarService:SidebarService,
+  constructor( public sidebarService:SidebarService,
     private usuarioServices:UsuariosService) {
 
       // this.imgUrl = usuarioServices.usuario.imagenUrl
 
-    this.menuItems = sidebarService.menu;
+    //this.menuItems = sidebarService.menu;
     
     // console.log(this.menuItems);
     this.usuario = usuarioServices.usuario

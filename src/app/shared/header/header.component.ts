@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Usuario } from '../../models/usuario.model';
+import { Router } from '@angular/router';
 
 
 
@@ -14,7 +15,8 @@ export class HeaderComponent implements OnInit {
   public imgUrl = ''
   public usuario!:Usuario
 
-  constructor( private usuarioService:UsuariosService) { 
+  constructor( private usuarioService:UsuariosService,
+                private router: Router) { 
 
 
   // this.imgUrl = usuarioService.usuario.imagenUrl
@@ -27,6 +29,16 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     this.usuarioService.logout()
+  }
+
+  buscar(termino:string){
+    if (termino.length === 0) {
+      return;
+      // this.router.navigateByUrl('/dashboard')
+      
+    }
+    this.router.navigateByUrl(`/dashboard/buscar/${termino}`)
+    
   }
 
 

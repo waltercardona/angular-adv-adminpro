@@ -20,7 +20,7 @@
                         <li class="nav-small-cap">PERSONAL</li>
 
                         <!-- todo este arreglo lo tendremos que estar duplicando por la cantidad que tenemos en el ts -->
-                        <li *ngFor="let item of menuItems"> 
+                        <li *ngFor="let item of sidebarService.menu"> 
                             <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
                                 <i [class]="item.icono"></i>
                                 <span class="hide-menu">

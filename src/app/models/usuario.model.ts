@@ -9,8 +9,8 @@ export class Usuario {
     constructor(
         public nombre: string,
         public email: string,
-        public img?: string,
-        public role?: string,
+        public img: string,
+        public role: 'ADMIN_ROLE' | ' USER_ROLE',
         public password?: string,
         public uid?: string,  
         public google?: string,

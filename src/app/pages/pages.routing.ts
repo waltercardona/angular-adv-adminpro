@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
+import { AdminGuard } from '../guards/admin.guard';
 import { AuthGuard } from '../guards/auth.guard';
 
 import { PagesComponent } from './pages.component';
@@ -17,6 +18,7 @@ import { UsuariosComponent } from './manteniminetos/usuarios/usuarios.component'
 import { HospitalesComponent } from './manteniminetos/hospitales/hospitales.component';
 import { MedicosComponent } from './manteniminetos/medicos/medicos.component';
 import { MedicoComponent } from './manteniminetos/medicos/medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 // Definimos las rutas y sus respectivos componentes
 const routes: Routes = [
@@ -32,6 +34,8 @@ const routes: Routes = [
       { path: '', component: DashboardComponent, data: { titulo: 'dashboard' } },
       // Ruta para el componente ProgressComponent
       { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
+      // Ruta para el componente ProgressComponent
+      { path: 'buscar/:termino', component: BusquedaComponent, data: { titulo: 'Busquedas' } },
       // Ruta para el componente Grafica1Component
       { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Grafica 1' } },
       // Ruta para el componente AccountSettingsComponent
@@ -44,10 +48,10 @@ const routes: Routes = [
       { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' } },
 
       //Mantenimientos
-      {path: 'usuarios', component: UsuariosComponent, data:{titulo: 'Mantenimiento de Usuarios'}},
       {path: 'hospitales', component: HospitalesComponent, data:{titulo: 'Mantenimiento de la Hospitales'}},
       {path: 'medicos', component: MedicosComponent, data:{titulo: 'Mantenimiento de la Medicos'}},
-      {path: 'medico/:id', component: MedicoComponent, data:{titulo: 'Mantenimiento de la Medicos'}}
+      {path: 'medico/:id', component: MedicoComponent, data:{titulo: 'Mantenimiento de la Medicos'}},
+      {path: 'usuarios', canActivate:[AdminGuard], component: UsuariosComponent, data:{titulo: 'Mantenimiento de Usuarios'}},
     ]
   },
 ];
